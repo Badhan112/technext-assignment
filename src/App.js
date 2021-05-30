@@ -1,24 +1,52 @@
-import logo from './logo.svg';
+import { createContext, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import PageNotFound from './components/PageNotFound/PageNotFound';
+import Posts from './components/Posts/Posts/Posts';
+import Profile from './components/Profile/Profile/Profile';
+import NavBar from './components/Shared/NavBar/NavBar';
+import SinglePost from './components/SinglePost/SinglePost/SinglePost';
+import Users from './components/Users/Users/Users';
+
+export const UserContext = createContext();
 
 function App() {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users/2')
+      .then(res => res.json())
+      .then(data => setUser(data));
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={user}>
+      <Router>
+        <NavBar />
+
+        <Switch>
+          <Route exact path='/'>
+            <Posts />
+          </Route>
+          <Route path='/posts'>
+            <Posts />
+          </Route>
+          <Route path='/users'>
+            <Users />
+          </Route>
+          <Route path='/profile'>
+            <Profile />
+          </Route>
+          <Route path='/post/:id'>
+            <SinglePost />
+          </Route>
+          <Route path='*'>
+            <PageNotFound />
+          </Route>
+        </Switch>
+
+      </Router>
+    </UserContext.Provider>
   );
 }
 

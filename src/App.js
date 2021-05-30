@@ -4,6 +4,7 @@ import './App.css';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import Posts from './components/Posts/Posts/Posts';
 import Profile from './components/Profile/Profile/Profile';
+import UpdatePost from './components/Profile/UpdatePost/UpdatePost';
 import NavBar from './components/Shared/NavBar/NavBar';
 import SinglePost from './components/SinglePost/SinglePost/SinglePost';
 import Users from './components/Users/Users/Users';
@@ -39,6 +40,9 @@ function App() {
           </Route>
           <Route path='/post/:id'>
             <SinglePost />
+          </Route>
+          <Route path='/updatepost/:id'>
+            <UpdatePost />
           </Route>
           <Route path='*'>
             <PageNotFound />

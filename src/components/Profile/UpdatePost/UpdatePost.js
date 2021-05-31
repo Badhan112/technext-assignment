@@ -27,7 +27,7 @@ const UpdatePost = () => {
             method: 'PATCH',
             body: JSON.stringify(updatedPost),
             headers: {
-                'Content-type': 'application/json',
+                'Content-type': 'application/json; charset=UTF-8',
             }
         })
             .then(res => res.json())
